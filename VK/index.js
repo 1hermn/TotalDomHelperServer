@@ -1,10 +1,9 @@
 const { VK } = require('vk-io');
 const { HearManager } = require('@vk-io/hear');
-const config = require('./config.json')
 
 
 const vk = new VK({
-	token: process.env.TOKEN || config.token
+	token: process.env.TOKEN
 });
 
 

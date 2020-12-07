@@ -1,9 +1,6 @@
 var restify = require('restify');
 const child_process = require('child_process');
 const mysql = require('mysql')
-const config = require('./config.json')
-
-process.env['PATHTOCONFIG'] = __dirname + "/config.json"
 
 var server = restify.createServer({
   name: 'Total Domination Helper',
