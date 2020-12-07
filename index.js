@@ -83,6 +83,6 @@ server.post('/upgr', function(req, res){
 	res.send({"message" : "Новое событие записано в базу данных"});
 });
 
-server.listen(1984,'127.0.0.1', function () {
+server.listen(1984,'localhost', function () {
   console.log('%s listening at %s', server.name, server.url);
 });
