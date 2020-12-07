@@ -2,6 +2,7 @@ var restify = require('restify');
 const child_process = require('child_process');
 const mysql = require('mysql')
 
+console.log(process.env)
 var server = restify.createServer({
   name: 'Total Domination Helper',
   version: '0.9.0'
