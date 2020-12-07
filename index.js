@@ -7,7 +7,7 @@ var server = restify.createServer({
   name: 'Total Domination Helper',
   version: '0.9.0'
 });
-/*
+
 const options = {
   user: process.env.user,
   password: process.env.pass,
@@ -25,7 +25,7 @@ connection.connect(err => {
   }else {
   	console.log("Подключено успешно")
   }
-})*/
+})
 
 //const start = child_process.fork("./VK/index.js")
 
