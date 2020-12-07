@@ -5,7 +5,8 @@ const mysql = require('mysql')
 
 var server = restify.createServer({
   name: 'Total Domination Helper',
-  version: '0.9.0'
+  version: '0.9.0',
+  url: 'totaldomhelper.dokaplus.by'
 });
 /*
 const options = {
