@@ -10,11 +10,11 @@ var server = restify.createServer({
   version: '0.9.0'
 });
 const options = {
-  user: config.login,
-  password: config.pass,
-  database: config.db_name,
-  host: config.host,
-  port: config.port
+  user: process.env.user,
+  password: process.env.pass,
+  database: process.env.db_name,
+  host: process.env.host,
+  port: process.env.port
 }
 
 const connection = mysql.createConnection(options)
