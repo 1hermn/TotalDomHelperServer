@@ -6,7 +6,7 @@ const vk = new VK({
 	token: process.env.TOKEN
 });
 
-
+// добавить тут подключение к бд
 const hearManager = new HearManager();
 
 vk.updates.on('message_new', hearManager.middleware);
