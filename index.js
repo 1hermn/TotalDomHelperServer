@@ -5,8 +5,7 @@ const mysql = require('mysql')
 
 var server = restify.createServer({
   name: 'Total Domination Helper',
-  version: '0.9.0',
-  url: 'totaldomhelper.dokaplus.by'
+  version: '0.9.0'
 });
 /*
 const options = {
@@ -84,6 +83,6 @@ server.post('/upgr', function(req, res){
 	res.send({"message" : "Новое событие записано в базу данных"});
 });
 
-server.listen(1984, function () {
+server.listen(1984,'127.0.0.1', function () {
   console.log('%s listening at %s', server.name, server.url);
 });
