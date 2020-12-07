@@ -9,8 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lowdb": "^1.0.0",
     "mysql": "^2.18.1",
-    "restify": "^8.5.1"
+    "restify": "^8.5.1",
+    "vk-io": "^4.1.1",
+     "@vk-io/hear": "^1.0.2"
   }
 }

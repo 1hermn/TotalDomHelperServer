@@ -1,5 +1,5 @@
 deployment:
   tasks:
-    - export REPOPATH=/home/dokaplus/repositories/TotalDomHelperServer 
-    - export SITEPATH=/home/dokaplus/repositories/TotalDomHelperServer 
+    - export REPOPATH=/home/dokaplus/TotalDomHelperServer 
+    - export SITEPATH=/home/dokaplus/TotalDomHelperServer 
     - /bin/rsync -rav --exclude '.git' --exclude '.cpanel.yml' --del $REPOPATH $SITEPATH
