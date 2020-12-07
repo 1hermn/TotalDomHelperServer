@@ -1,7 +1,5 @@
 deployment:
   tasks:
-    - export REPOPATH=/home/dokaplus/TotalDomHelperServer 
+    - export REPOPATH=/home/dokaplus/github/test/TotalDomHelperServer 
     - export SITEPATH=/home/dokaplus/totaldomhelper.dokaplus.by 
     - /bin/rsync -rav --exclude '.git' --exclude '.cpanel.yml' --del $REPOPATH $SITEPATH
-    - npm install
-    - node index.js
