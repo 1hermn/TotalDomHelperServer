@@ -7,6 +7,7 @@ const vk = new VK({
 });
 
 // добавить тут подключение к бд
+// test
 const hearManager = new HearManager();
 
 vk.updates.on('message_new', hearManager.middleware);
