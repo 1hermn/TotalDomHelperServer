@@ -90,7 +90,7 @@ if(body.time_end === undefined){
 	})
   }else {
   	//если найдена, то дописывается та, которая есть
-  	sql = "UPDATE `tasks` SET `id_p` = '"+body.id_p+"', `time_start` = '" + body.time_start + "', `id` = '"+body.id + "', `type` = '"+body.type + "' WHERE `tasks` `sign` = '"+ body.sign +"'"
+  	sql = "UPDATE `tasks` SET `id_p` = '"+body.id_p+"', `time_start` = '" + body.time_start + "', `id` = '"+body.id + "', `type` = '"+body.type + "' WHERE `sign` = '"+ body.sign +"'"
   	connection.query(sql, (error, results, fields) => {
   	if (error) {
     	console.error('An error occurred while executing the query')
@@ -109,7 +109,7 @@ if(body.time_end === undefined){
 		sign: body.sign
 	}
 	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'";
-//то же самое и в самом начале
+//то же самое и в самомое
 	connection.query(sql, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
