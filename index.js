@@ -82,7 +82,7 @@ if(body.time_end === undefined){
 		time_end: body.time_end,
 		sign: body.sign
 	}
-	//тест...
+	//тест...////
 	sql = "UPDATE tasks SET time_end = '"+ body.time_end + "' WHERE sign = '" + body.sign + "'";
 	connection.query(sql, (error, results, fields) => {
   if (error) {
