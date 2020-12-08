@@ -69,7 +69,7 @@ if(body.time_end === undefined){
 		id: body.id,
 		type: body.type
 	}
-	connection.query('INSERT INTO todos SET ?', query_arr, (error, results, fields) => {
+	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
@@ -80,7 +80,7 @@ if(body.time_end === undefined){
 	var query_arr = {
 		time_end: body.time_end
 	}
-	connection.query('INSERT INTO todos SET ?', query_arr, (error, results, fields) => {
+	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
