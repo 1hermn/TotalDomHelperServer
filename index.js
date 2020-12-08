@@ -69,15 +69,30 @@ if(body.time_end === undefined){
 		id: body.id,
 		type: body.type
 	}
-	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
+	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'"
+
+	connection.query(sql, query_arr, (error, results, fields) => {
   if (error) {
+    res.send('Ошибка при работе с базой данных')
     console.error('An error occurred while executing the query')
     throw error
-    res.send('Ошибка при работе с базой данных')
   }
-  // вот тут добавить проверку на то, что не записано time end
-  res.send({"message" : "Новое событие записано в базу данных"});
+  if(!results[0]){
+  	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
+  	if (error) {
+    	res.send('Ошибка при работе с базой данных')
+    	console.error('An error occurred while executing the query')
+    	throw error
+  	}
+  	res.send({"message" : "Новое событие записано в базу данных"});
+	})
+  }else {
+  	//sql = "UPDATE `tasks` SET `id_p` = '123', `time_start` = '123', `sign` = '123', `id` = '"+body.id"', `type` = '"+body.type"' WHERE `tasks` `sign` = '"+ body.sign +"'"
+  	res.send(results[0]);
+  }
 })
+
+
 }else {
 	var query_arr = {
 		time_end: body.time_end,
