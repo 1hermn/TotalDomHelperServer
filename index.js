@@ -79,9 +79,10 @@ if(body.time_end === undefined){
 })
 }else {
 	var query_arr = {
-		time_end: body.time_end
+		time_end: body.time_end,
+		sign: body.sign
 	}
-	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
+	connection.query('UPDATE `tasks` SET `time_end` = ? WHERE `tasks`.`sign` = ?', query_arr, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
