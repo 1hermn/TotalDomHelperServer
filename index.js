@@ -75,6 +75,7 @@ if(body.time_end === undefined){
     throw error
     res.send('Ошибка при работе с базой данных')
   }
+  res.send({"message" : "Новое событие записано в базу данных"});
 })
 }else {
 	var query_arr = {
@@ -85,9 +86,8 @@ if(body.time_end === undefined){
     console.error('An error occurred while executing the query')
     throw error
     res.send('Ошибка при работе с базой данных')
-  }else {
-  	res.send({"message" : "Новое событие записано в базу данных"});
   }
+  res.send({"message" : "Новое событие записано в базу данных"});
 })
 }
 }
@@ -97,16 +97,16 @@ server.use(restify.plugins.jsonp());
 server.use(restify.plugins.bodyParser({ mapParams: true }));
 
 server.post('/buy', function(req, res){
-	AddToLowDB(req.body)
+	AddToLowDB(req.body, res)
 });
 server.post('/imp', function(req, res){
-	AddToLowDB(req.body)
+	AddToLowDB(req.body, res)
 });
 server.post('/powder', function(req, res){
-	AddToLowDB(req.body)
+	AddToLowDB(req.body, res)
 });
 server.post('/upgr', function(req, res){
-	AddToLowDB(req.body)
+	AddToLowDB(req.body, res)
 });
 
 server.listen(1984, function () {
