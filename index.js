@@ -69,7 +69,7 @@ if(body.time_end === undefined){
   }
 })
 }else {
-	connection.query('INSERT INTO tasks (`time_end`) VALUES ('`${body.time_end}`');', (error, results, fields) => {
+	connection.query('INSERT INTO tasks (`time_end`) VALUES (body.time_end);', (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
