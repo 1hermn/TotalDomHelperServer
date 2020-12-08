@@ -61,7 +61,7 @@ function AddToLowDB(body, res){
 			  }
 }*/
 if(body.time_end === undefined){
-	connection.query('INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`) VALUES ('`${body.id_p}`', '`${body.time_start}`', NULL, '`${body.sign}`', NULL, '`${body.id}`', NULL, '`${body.type}`');', (error, results, fields) => {
+	connection.query('INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`) VALUES (body.id_p, body.time_start, NULL, body.sign, NULL, body.id, NULL, body.type}', (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
