@@ -69,13 +69,52 @@ if(body.time_end === undefined){
 		id: body.id,
 		type: body.type
 	}
-	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'"
 
+	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'"
+//поиск в таблице уже имеющейся записи(на случай если end_time отправилось раньше)
 	connection.query(sql, query_arr, (error, results, fields) => {
   if (error) {
     res.send('Ошибка при работе с базой данных')
     console.error('An error occurred while executing the query')
     throw error
+  }
+  if(!results[0]){
+  	//если записи не найдено, то новая запись 
+  	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
+  	if (error) {
+    	res.send('Ошибка при работе с базой данных')
+    	console.error('An error occurred while executing the query')
+    	throw error
+  	}
+  	res.send({"message" : "Новое событие записано в базу данных"});
+	})
+  }else {
+  	//если найдена, то дописывается та, которая есть
+  	sql = "UPDATE `tasks` SET `id_p` = '"+body.id_p+"', `time_start` = '" + body.time_start + "', `id` = '"+body.id + "', `type` = '"+body.type + "' WHERE `tasks` `sign` = '"+ body.sign +"'"
+  	connection.query(sql, (error, results, fields) => {
+  	if (error) {
+    	console.error('An error occurred while executing the query')
+    	throw error
+    	res.send('Ошибка при работе с базой данных')
+  	}
+  	res.send({"message" : "Новое событие записано в базу данных"});
+})
+  }
+})
+
+
+}else {
+	var query_arr = {
+		time_end: body.time_end,
+		sign: body.sign
+	}
+	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'";
+//то же самое и в самом начале
+	connection.query(sql, (error, results, fields) => {
+  if (error) {
+    console.error('An error occurred while executing the query')
+    throw error
+    res.send('Ошибка при работе с базой данных')
   }
   if(!results[0]){
   	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
@@ -87,19 +126,7 @@ if(body.time_end === undefined){
   	res.send({"message" : "Новое событие записано в базу данных"});
 	})
   }else {
-  	//sql = "UPDATE `tasks` SET `id_p` = '123', `time_start` = '123', `sign` = '123', `id` = '"+body.id"', `type` = '"+body.type"' WHERE `tasks` `sign` = '"+ body.sign +"'"
-  	res.send(results[0]);
-  }
-})
-
-
-}else {
-	var query_arr = {
-		time_end: body.time_end,
-		sign: body.sign
-	}
-	//тут также, если не найдено, то записать
-	sql = "UPDATE tasks SET time_end = '"+ body.time_end + "' WHERE sign = '" + body.sign + "'";
+  	sql = "UPDATE tasks SET time_end = '"+ body.time_end + "' WHERE sign = '" + body.sign + "'";
 	connection.query(sql, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
@@ -107,6 +134,8 @@ if(body.time_end === undefined){
     res.send('Ошибка при работе с базой данных')
   }
   res.send({"message" : "Новое событие записано в базу данных"});
+})
+  }
 })
 }
 }
