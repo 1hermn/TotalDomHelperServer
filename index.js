@@ -82,7 +82,8 @@ if(body.time_end === undefined){
 		time_end: body.time_end,
 		sign: body.sign
 	}
-	connection.query(`UPDATE `tasks` SET time_end = ${body.time_end} WHERE sign LIKE ${body.sign}`, query_arr, (error, results, fields) => {
+	sql = `UPDATE tasks SET time_end = ${body.time_end} WHERE sign LIKE ${body.sign}` 
+	connection.query(sql, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
