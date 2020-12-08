@@ -30,7 +30,7 @@ connection.connect(err => {
 //const start = child_process.fork("./VK/index.js")
 
 
-function AddToLowDB(body){
+function AddToLowDB(body, res){
 /*	db.read()
 	if(!db.has(`${body.id_p}`).value()){
 		db.set(`${body.id_p}`, {"vk_id" : 0, "actions": []})
@@ -60,6 +60,25 @@ function AddToLowDB(body){
 			  .write()
 			  }
 }*/
+if(body.time_end === undefined){
+	connection.query('INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`) VALUES ('`${body.id_p}`', '`${body.time_start}`', NULL, '`${body.sign}`', NULL, '`${body.id}`', NULL, '`${body.type}`');', (error, results, fields) => {
+  if (error) {
+    console.error('An error occurred while executing the query')
+    throw error
+    res.send('Ошибка при работе с базой данных')
+  }
+})
+}else {
+	connection.query('INSERT INTO tasks (`time_end`) VALUES ('`${body.time_end}`');', (error, results, fields) => {
+  if (error) {
+    console.error('An error occurred while executing the query')
+    throw error
+    res.send('Ошибка при работе с базой данных')
+  }else {
+  	res.send({"message" : "Новое событие записано в базу данных"});
+  }
+})
+}
 }
 
 server.use(restify.plugins.acceptParser(server.acceptable));
@@ -68,19 +87,15 @@ server.use(restify.plugins.bodyParser({ mapParams: true }));
 
 server.post('/buy', function(req, res){
 	AddToLowDB(req.body)
-	res.send({"message" : "Новое событие записано в базу данных"});
 });
 server.post('/imp', function(req, res){
 	AddToLowDB(req.body)
-	res.send({"message" : "Новое событие записано в базу данных"});
 });
 server.post('/powder', function(req, res){
 	AddToLowDB(req.body)
-	res.send({"message" : "Новое событие записано в базу данных"});
 });
 server.post('/upgr', function(req, res){
 	AddToLowDB(req.body)
-	res.send({"message" : "Новое событие записано в базу данных"});
 });
 
 server.listen(1984, function () {
