@@ -61,7 +61,15 @@ function AddToLowDB(body, res){
 			  }
 }*/
 if(body.time_end === undefined){
-	connection.query('INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`) VALUES (body.id_p, body.time_start, NULL, body.sign, NULL, body.id, NULL, body.type}', (error, results, fields) => {
+	//INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`)
+	var query_arr = {
+		id_p: body.id_p,
+		time_start: body.time_start,
+		sign: body.sign,
+		id: body.id,
+		type: body.type
+	}
+	connection.query('INSERT INTO todos SET ?', query_arr, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
@@ -69,7 +77,10 @@ if(body.time_end === undefined){
   }
 })
 }else {
-	connection.query('INSERT INTO tasks (`time_end`) VALUES (body.time_end);', (error, results, fields) => {
+	var query_arr = {
+		time_end: body.time_end
+	}
+	connection.query('INSERT INTO todos SET ?', query_arr, (error, results, fields) => {
   if (error) {
     console.error('An error occurred while executing the query')
     throw error
