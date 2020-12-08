@@ -75,6 +75,7 @@ if(body.time_end === undefined){
     throw error
     res.send('Ошибка при работе с базой данных')
   }
+  // вот тут добавить проверку на то, что не записано time end
   res.send({"message" : "Новое событие записано в базу данных"});
 })
 }else {
@@ -82,7 +83,7 @@ if(body.time_end === undefined){
 		time_end: body.time_end,
 		sign: body.sign
 	}
-	//тест...////
+	//тут также, если не найдено, то записать
 	sql = "UPDATE tasks SET time_end = '"+ body.time_end + "' WHERE sign = '" + body.sign + "'";
 	connection.query(sql, (error, results, fields) => {
   if (error) {
