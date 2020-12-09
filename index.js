@@ -31,92 +31,15 @@ connection.connect(err => {
 
 
 function AddToLowDB(body, res){
-/*	db.read()
-	if(!db.has(`${body.id_p}`).value()){
-		db.set(`${body.id_p}`, {"vk_id" : 0, "actions": []})
-		  .write()
-	}
-
-		if(body.time_end === undefined){
-			if(!db.get(`${body.id_p}.actions`).find({ sign: body.sign }).value()){
-				db.get(`${body.id_p}.actions`)
-  			  .push({ type: body.type, id: body.id, time_start: body.time_start, sign: body.sign, time_end: 0})
-  			  .write()
-			}else {
-			db.get(`${body.id_p}.actions`)
-			  .find({ sign: body.sign })
-  			  .assign({ id: body.id, time_start: body.time_start, sign: body.sign})
-  			  .write()
-  			}
-		}if(body.time_end != undefined){
-			if(!db.get(`${body.id_p}.actions`).find({ sign: body.sign }).value()){
-				db.get(`${body.id_p}.actions`)
-				.push({ type: body.type, id: 0, time_start: 0, sign: body.sign, time_end: body.time_end})
-  			  	.write()
-			}else {
-			db.get(`${body.id_p}.actions`)
-			  .find({ sign: body.sign })
-			  .assign({time_end: body.time_end})
-			  .write()
-			  }
-}*/
-if(body.time_end === undefined){
-	//INSERT INTO tasks (`id_p`, `time_start`, `time_end`, `sign`, `i`, `id`, `id_incr`, `type`)
 	var query_arr = {
 		id_p: body.id_p,
 		time_start: body.time_start,
 		sign: body.sign,
 		id: body.id,
-		type: body.type
-	}
-
-	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'"
-//поиск в таблице уже имеющейся записи(на случай если end_time отправилось раньше)
-	connection.query(sql, query_arr, (error, results, fields) => {
-  if (error) {
-    res.send('Ошибка при работе с базой данных')
-    console.error('An error occurred while executing the query')
-    throw error
-  }
-  if(!results[0]){
-  	//если записи не найдено, то новая запись 
-  	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
-  	if (error) {
-    	res.send('Ошибка при работе с базой данных')
-    	console.error('An error occurred while executing the query')
-    	throw error
-  	}
-  	res.send({"message" : "Новое событие записано в базу данных"});
-	})
-  }else {
-  	//если найдена, то дописывается та, которая есть
-  	sql = "UPDATE `tasks` SET `id_p` = '"+body.id_p+"', `time_start` = '" + body.time_start + "', `id` = '"+body.id + "', `type` = '"+body.type + "' WHERE `sign` = '"+ body.sign +"'"
-  	connection.query(sql, (error, results, fields) => {
-  	if (error) {
-    	console.error('An error occurred while executing the query')
-    	throw error
-    	res.send('Ошибка при работе с базой данных')
-  	}
-  	res.send({"message" : "Новое событие записано в базу данных"});
-})
-  }
-})
-
-
-}else {
-	var query_arr = {
+		type: body.type,
 		time_end: body.time_end,
-		sign: body.sign
+		i: body.i
 	}
-	var sql = " SELECT * FROM `tasks` WHERE `sign` = '" + body.sign + "'";
-//то же самое и в самомое
-	connection.query(sql, (error, results, fields) => {
-  if (error) {
-    console.error('An error occurred while executing the query')
-    throw error
-    res.send('Ошибка при работе с базой данных')
-  }
-  if(!results[0]){
   	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
   	if (error) {
     	res.send('Ошибка при работе с базой данных')
@@ -125,21 +48,7 @@ if(body.time_end === undefined){
   	}
   	res.send({"message" : "Новое событие записано в базу данных"});
 	})
-  }else {
-  	sql = "UPDATE tasks SET time_end = '"+ body.time_end + "' WHERE sign = '" + body.sign + "'";
-	connection.query(sql, (error, results, fields) => {
-  if (error) {
-    console.error('An error occurred while executing the query')
-    throw error
-    res.send('Ошибка при работе с базой данных')
-  }
-  res.send({"message" : "Новое событие записано в базу данных"});
-})
-  }
-})
 }
-}
-
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.jsonp());
 server.use(restify.plugins.bodyParser({ mapParams: true }));
