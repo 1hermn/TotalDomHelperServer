@@ -37,8 +37,7 @@ function AddToLowDB(body, res){
 		sign: body.sign,
 		id: body.id,
 		type: body.type,
-		time_end: body.time_end,
-		i: body.i
+		time_end: body.time_end
 	}
   	connection.query('INSERT INTO tasks SET ?', query_arr, (error, results, fields) => {
   	if (error) {
