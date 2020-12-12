@@ -57,7 +57,7 @@ vk.updates.on('message_new', async (context, next) => {
         }
         if(results[0]){
           context.send("Добавлено!")
-          let q = `UPDATE 'usres_vk' SET 'vk_id' = '${context.peerId}' WHERE 'id_p' = ${Number(id)}`;
+          let q = `UPDATE usres_vk SET vk_id = '${context.peerId}' WHERE 'id_p' = '${Number(id)}'`;
           connection.query(q, (error, results, fields) => {
           if(error){
             console.error('An error occurred while executing the query')
