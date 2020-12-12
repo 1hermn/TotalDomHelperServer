@@ -48,11 +48,23 @@ vk.updates.on('message_new', async (context, next) => {
 		db.read()
 		var id = context.text.split(" ")[1];
 		context.send("Попытка добавить в базу данных...")
-		if(){
-			
-		}else {
-			context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
-		}
+		var vk_id = {
+      	vk_id: context.peerId
+    	}
+    	connection.query(`SELECT * FROM usres_vk WHERE id_p LIKE '${id}'`, (error, results, fields) => {
+      	if (error) {
+      		console.error('An error occurred while executing the query')
+      		throw error
+      	}
+      	if(!results[0]){
+        	connection.query('INSERT INTO usres_vk SET ?', vk_id, (error, results, fields) => {
+        	if(error){
+         		console.error('An error occurred while executing the query')
+            	throw error
+          	}
+        	})
+        }else context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
+    })
 	}
 })
 
