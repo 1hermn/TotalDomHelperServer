@@ -45,7 +45,7 @@ vk.updates.on('message_new', async (context, next) => {
 		var vk_id = {
       	vk_id: context.peerId
     	}
-    	connection.query(`SELECT * FROM usres_vk WHERE id_p LIKE '${id}'`, (error, results, fields) => {
+    	connection.query(`SELECT * FROM usres_vk WHERE id_p LIKE '${Number(id)}'`, (error, results, fields) => {
       	if (error) {
       		console.error('An error occurred while executing the query')
       		throw error
