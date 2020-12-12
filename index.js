@@ -56,8 +56,9 @@ vk.updates.on('message_new', async (context, next) => {
           throw error
         }
         if(results[0]){
-          connection.query(`UPDATE usres_vk SET vk_id = '${context.peerId}' WHERE 'usres_vk'.'id_p' LIKE ${id}`, (error, results, fields) => {
-            console.log(`UPDATE usres_vk SET vk_id = '${context.peerId}' WHERE 'usres_vk'.'id_p' LIKE ${id}`)
+          let q = 'UPDATE `usres_vk` SET `vk_id` = '+context.peerId+' WHERE `id_p` = ' + id;
+          connection.query(q, (error, results, fields) => {
+            console.log(q)
             console.log(results)
           if(error){
             context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
