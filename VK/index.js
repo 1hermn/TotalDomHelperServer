@@ -6,9 +6,33 @@ const vk = new VK({
 	token: process.env.TOKEN
 });
 
-// добавить тут подключение к бд
-// test
 const hearManager = new HearManager();
+
+const mysql = require('mysql')
+
+var server = restify.createServer({
+  name: 'Total Domination Helper',
+  version: '0.9.0'
+});
+
+const options = {
+  user: process.env.user,
+  password: process.env.pass,
+  database: process.env.db_name,
+  host: process.env.host,
+  port: process.env.port
+}
+
+const connection = mysql.createConnection(options)
+
+connection.connect(err => {
+  if (err) {
+    console.error('An error occurred while connecting to the DB')
+    throw err
+  }else {
+  	console.log("Подключено успешно")
+  }
+})
 
 vk.updates.on('message_new', hearManager.middleware);
 
