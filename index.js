@@ -58,7 +58,7 @@ function AddToLowDB(body, res){
       }
       if(!results[0]){
         //INSERT INTO `usres_vk` (`id_p`, `vk_id`, `id`) VALUES ('234', '234', NULL);
-        connection.query('INSERT INTO  SET ?', query_arr, (error, results, fields) => {
+        connection.query('INSERT INTO usres_vk SET ?', query_arr, (error, results, fields) => {
           if(error){
             console.error('An error occurred while executing the query')
             throw error
