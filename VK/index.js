@@ -10,11 +10,6 @@ const hearManager = new HearManager();
 
 const mysql = require('mysql')
 
-var server = restify.createServer({
-  name: 'Total Domination Helper',
-  version: '0.9.0'
-});
-
 const options = {
   user: process.env.user,
   password: process.env.pass,
