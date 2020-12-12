@@ -50,7 +50,7 @@ vk.updates.on('message_new', async (context, next) => {
       		console.error('An error occurred while executing the query')
       		throw error
       	}
-      	if(!results[0]){
+      	if(results[0]){
         	connection.query('INSERT INTO usres_vk SET ?', vk_id, (error, results, fields) => {
         	if(error){
          		console.error('An error occurred while executing the query')
