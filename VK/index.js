@@ -40,7 +40,6 @@ hearManager.hear('/start', async (context) => {
 
 vk.updates.on('message_new', async (context, next) => {
 	if(context.text.startsWith('/myid')){
-		db.read()
 		var id = context.text.split(" ")[1];
 		context.send("Попытка добавить в базу данных...")
 		var vk_id = {
