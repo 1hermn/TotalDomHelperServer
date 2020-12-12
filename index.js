@@ -58,6 +58,7 @@ vk.updates.on('message_new', async (context, next) => {
         if(results[0]){
           let q = `UPDATE usres_vk SET vk_id = ${Number(context.peerId)} WHERE 'id_p' = '${Number(id)}'`;
           connection.query(q, (error, results, fields) => {
+            console.log(results)
           if(error){
             context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
             console.error('An error occurred while executing the query')
