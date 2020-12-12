@@ -56,13 +56,13 @@ vk.updates.on('message_new', async (context, next) => {
           throw error
         }
         if(results[0]){
+          context.send("Добавлено!")
           let q = `UPDATE 'usres_vk' SET 'vk_id' = '${context.peerId}' WHERE 'usres_vk'.'id_p' = ${Number(id)}`;
-          connection.query('INSERT INTO usres_vk SET ?', vk_id, (error, results, fields) => {
+          connection.query(q, (error, results, fields) => {
           if(error){
             console.error('An error occurred while executing the query')
               throw error
             }
-            context.send("Добавлено!")
           })
         }else context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
     })
