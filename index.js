@@ -50,21 +50,19 @@ vk.updates.on('message_new', async (context, next) => {
   if(context.text.startsWith('/myid')){
     var id = context.text.split(" ")[1];
     context.send("Попытка добавить в базу данных...")
-    var vk_id = {
-        vk_id: context.peerId
-      }
       connection.query(`SELECT * FROM usres_vk WHERE id_p LIKE '${Number(id)}'`, (error, results, fields) => {
         if (error) {
           console.error('An error occurred while executing the query')
           throw error
         }
-        console.log("#1", results)
         if(results[0]){
+          let q = `UPDATE 'usres_vk' SET 'vk_id' = '${context.peerId}' WHERE 'usres_vk'.'id_p' = ${Number(id)}`;
           connection.query('INSERT INTO usres_vk SET ?', vk_id, (error, results, fields) => {
           if(error){
             console.error('An error occurred while executing the query')
               throw error
             }
+            context.send("Добавлено!")
           })
         }else context.send("Ошибка добавления id в базу, возможно, вы ввели его не правильно или ни одной записи с этим id нет в базе! Прочитайте инструкцию и попробуйте снова")
     })
