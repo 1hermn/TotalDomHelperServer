@@ -102,15 +102,14 @@ let cycle = setInterval(async() => {
         time_end = time_end.getTime();
 
         console.log(`DB: ${time_end}`, `Local: ${now}`)
-        if (Math.abs(time_end - now) <= 1000 * 60) {
+        if (Math.abs(time_end - now) <= 500 * 60) {
           //отправка сообщения в вк. 
           //Find in usres_vk где id_p развен текущему id_p и отправить по vk_id сообщение. от том, что метод(позже сделать таблицу перевод), строение (тоже табличкой), улучшено. Причём это делать желательно в отдельном процессе. Чтобы не сбить весь счётчик. Но наверное node.js так и делает
           //и потом удалить запись используя num из первого результата ;)
-          let sql = "SELECT * FROM `usres_vk` WHERE `id_p` LIKE " + `${results[i].id_p}`
+          let sql = "SELECT * FROM `usres_vk` WHERE `id_p` LIKE " + `'${results[i].id_p}'`
 
           connection.query(sql, (error, vk_ids, fields) => {
             if (error) {
-              res.send('Ошибка при работе с базой данных')
               console.error('An error occurred while executing the query')
               throw error
             }
