@@ -54,7 +54,8 @@ vk.updates.on('message_new', async(context, next) => {
   if (context.text.startsWith('/myid')) {
     var id = context.text.split(" ")[1];
     context.send("Попытка добавить в базу данных...")
-    connection.query(`SELECT * FROM usres_vk WHERE id_p LIKE '${id}'`, (error, results, fields) => {
+    let q = 'SELECT * FROM `usres_vk` WHERE `id_p` LIKE ' + `'${id}'`
+    connection.query(q, (error, results, fields) => {
       if (error) {
         console.error('An error occurred while executing the query')
         throw error
