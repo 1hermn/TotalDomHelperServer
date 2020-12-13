@@ -60,7 +60,7 @@ vk.updates.on('message_new', async(context, next) => {
         throw error
       }
       if (results[0]) {
-        let q = 'UPDATE `usres_vk` SET `vk_id` = ' + context.peerId + ' WHERE `id_p` = ' + id;
+        let q = 'UPDATE `usres_vk` SET `vk_id` = ' + context.peerId + ' WHERE `id_p` = ' + `'${id}'`;
         connection.query(q, (error, results, fields) => {
           console.log(q)
           console.log(results)
