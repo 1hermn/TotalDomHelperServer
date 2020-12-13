@@ -114,7 +114,7 @@ let cycle = setInterval(async() => {
               throw error
             }
             if(vk_ids[0]){
-
+              console.log(results[i])
               let type = results[i].type
               let id = results[i].id_p
               //let lvl = results[i].lvl
