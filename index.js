@@ -102,11 +102,16 @@ let cycle = setInterval(async() => {
         time_end = time_end.getTime();
 
         console.log(`DB: ${time_end}`, `Local: ${now}`)
-        if (Math.abs(time_end - now) <= 500 * 60) {
+
+              var type = results[i].type
+              var id_1 = results[i].id
+              var id_p_1 = results[i].id_p
+        if (Math.abs(time_end - now) <= 500 * 60) { //позже избавиться от погрешности
+          console.log(results[i])
           //отправка сообщения в вк. 
           //Find in usres_vk где id_p развен текущему id_p и отправить по vk_id сообщение. от том, что метод(позже сделать таблицу перевод), строение (тоже табличкой), улучшено. Причём это делать желательно в отдельном процессе. Чтобы не сбить весь счётчик. Но наверное node.js так и делает
           //и потом удалить запись используя num из первого результата ;)
-          let sql = "SELECT * FROM `usres_vk` WHERE `id_p` LIKE " + `'${results[i].id_p}'`
+          let sql = "SELECT * FROM `usres_vk` WHERE `id_p` LIKE " + `'${results[i].id_p_1}'`
 
           connection.query(sql, (error, vk_ids, fields) => {
             if (error) {
@@ -114,13 +119,10 @@ let cycle = setInterval(async() => {
               throw error
             }
             if(vk_ids[0]){
-              console.log(results[i])
-              let type = results[i].type
-              let id = results[i].id_p
               //let lvl = results[i].lvl
               vk.api.messages.send({
-                message: `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id}`,
-                peerId: vk_ids.vk_id
+                message: `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
+                peerId: vk_ids[0].vk_id
               })
             }
             //тут удалить запись
