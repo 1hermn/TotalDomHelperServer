@@ -88,7 +88,7 @@ let cycle = setInterval(async () => {
     if(results[0]){
       for(i = 0; i < results.length; i++){
         let now = new Date();
-        now = now.getTime()
+        now = now.getTime() + +10800000//смещение. Пока не знаю как по другому. Для моего сервера так.
         console.log(`DB: ${results[i].time_end}`,`Local: ${now}` )
         if(Math.abs(results[i].time_end - now) <= 2000){
           console.log("done")
