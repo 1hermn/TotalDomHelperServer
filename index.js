@@ -119,12 +119,15 @@ let cycle = setInterval(async() => {
               console.error('An error occurred while executing the query')
               throw error
             }
-            if(vk_ids[0]){
+            //console.log(vk_ids[0].vk_id)
               //let lvl = results[i].lvl
+              try{
               vk.api.messages.send({
                 message: `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
                 peerId: vk_ids[0].vk_id
               })
+            }catch(err){
+              console.log(err)
             }
             //тут удалить запись
           })
