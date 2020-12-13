@@ -87,7 +87,12 @@ let cycle = setInterval(async () => {
     }
     if(results[0]){
       for(i = 0; i < results.length; i++){
-        console.log(results[i]);
+        let now = new Date();
+        now = now.getTime()
+        console.log(`DB: ${results[i].time_end}`,`Local: ${now}` )
+        if(Math.abs(results[i].time_end - now) <= 2000){
+          console.log("done")
+        };
       }
     }
   })
