@@ -72,7 +72,26 @@ vk.updates.on('message_new', async (context, next) => {
   }
 })
 
-
+let cycle = setInterval(async () => {
+  //получить все данные из бд tasks
+  //для каждого сравнить time_end с текущим + 2 мин
+  //если есть совпадение, то найти по id_p в users_vk вк и отправить. 
+  //если vk_id == 0, то ничего не делать.
+  //иначе -> отправить по вк сообщение
+  //после успешной отправки удалить запись
+  connection.query('SELECT * FROM `tasks`',(error, results, fields) => {
+    if (error) {
+      res.send('Ошибка при работе с базой данных')
+      console.error('An error occurred while executing the query')
+      throw error
+    }
+    if(results[0]){
+      for(i = 0; i < results.length; i++){
+        console.log(results[i]);
+      }
+    }
+  })
+}, 1000*10);
 
 vk.updates.start().catch(console.error);
 //VK END
