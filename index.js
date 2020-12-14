@@ -108,7 +108,6 @@ let cycle = setInterval(async() => {
               var id_1 = results[i].id
               var id_p_1 = results[i].id_p
         if (Math.abs(time_end - now) <= 500 * 60) { //позже избавиться от погрешности
-          console.log(results[i])
           //отправка сообщения в вк. 
           //Find in usres_vk где id_p развен текущему id_p и отправить по vk_id сообщение. от том, что метод(позже сделать таблицу перевод), строение (тоже табличкой), улучшено. Причём это делать желательно в отдельном процессе. Чтобы не сбить весь счётчик. Но наверное node.js так и делает
           //и потом удалить запись используя num из первого результата ;)
@@ -119,6 +118,7 @@ let cycle = setInterval(async() => {
               console.error('An error occurred while executing the query')
               throw error
             }
+            console.log(vk_ids[0])
             //console.log(vk_ids[0].vk_id)
               //let lvl = results[i].lvl
               try{
