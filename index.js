@@ -47,7 +47,7 @@ hearManager.hear('/start', async(context) => {
   await context.send(`
     Вы разрешили отправлять сообщения
     Введите команду /myid id, где id, ваш ид, чтобы добавить id аккаунта ПВ
-  `);
+    `);
 });
 
 vk.updates.on('message_new', async(context, next) => {
@@ -104,9 +104,10 @@ let cycle = setInterval(async() => {
 
         console.log(`DB: ${time_end}`, `Local: ${now}`)
 
-              var type = results[i].type
-              var id_1 = results[i].id
-              var id_p_1 = results[i].id_p
+        var type = results[i].type
+        var id_1 = results[i].id
+        var id_p_1 = results[i].id_p
+        var num = results[i].num
         if (Math.abs(time_end - now) <= 500 * 60) { //позже избавиться от погрешности
           //отправка сообщения в вк. 
           //Find in usres_vk где id_p развен текущему id_p и отправить по vk_id сообщение. от том, что метод(позже сделать таблицу перевод), строение (тоже табличкой), улучшено. Причём это делать желательно в отдельном процессе. Чтобы не сбить весь счётчик. Но наверное node.js так и делает
@@ -118,31 +119,36 @@ let cycle = setInterval(async() => {
               console.error('An error occurred while executing the query')
               throw error
             }
-            console.log(vk_ids[0])
-            //console.log(vk_ids[0].vk_id)
-              //let lvl = results[i].lvl
+            if(vk_ids[0]){
               try{
                 let now = new Date();
                 now = now.toString();
                 now = new Date(now);
                 now = now.getTime();
-              vk.api.messages.send({
-                "message": `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
-                "user_id": vk_ids[0].vk_id,
-                "random_id": now
-              })
-            }catch(err){
-              console.log(err)
+                vk.api.messages.send({
+                  "message": `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
+                  "user_id": vk_ids[0].vk_id,
+                  "random_id": now
+                })
+              }catch(err){
+                console.log(err)
+              }
             }
-            //тут удалить запись
+            let sql = 'DELETE FROM `tasks` WHERE `num` = ' + num;
+            connection.query(sql, (error, results, fields) => {
+              if (error) {
+                console.error('An error occurred while executing the query')
+                throw error
+              }
+            }
           })
-        };
+          };
+        }
       }
-    }
-  })
-}, 1000 * 10);
+    })
+        }, 1000 * 10);
 
-vk.updates.start().catch(console.error);
+  vk.updates.start().catch(console.error);
 //VK END
 
 
