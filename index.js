@@ -112,7 +112,6 @@ let cycle = setInterval(async() => {
           //Find in usres_vk где id_p развен текущему id_p и отправить по vk_id сообщение. от том, что метод(позже сделать таблицу перевод), строение (тоже табличкой), улучшено. Причём это делать желательно в отдельном процессе. Чтобы не сбить весь счётчик. Но наверное node.js так и делает
           //и потом удалить запись используя num из первого результата ;)
           let sql = "SELECT * FROM `usres_vk` WHERE `id_p` LIKE " + `'${id_p_1}'`
-          console.log(sql)
 
           connection.query(sql, (error, vk_ids, fields) => {
             if (error) {
@@ -124,8 +123,8 @@ let cycle = setInterval(async() => {
               //let lvl = results[i].lvl
               try{
               vk.api.messages.send({
-                message: `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
-                peerId: vk_ids[0].vk_id
+                "message": `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
+                "peerId": vk_ids[0].vk_id
               })
             }catch(err){
               console.log(err)
