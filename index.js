@@ -128,7 +128,7 @@ let cycle = setInterval(async() => {
                 now = now.getTime();
               vk.api.messages.send({
                 "message": `Событие завершено!\nТип: ${type}\nid здания/ячейки и т.д : ${id_1}`,
-                "peerId": vk_ids[0].vk_id,
+                "user_id": vk_ids[0].vk_id,
                 "random_id": now
               })
             }catch(err){
