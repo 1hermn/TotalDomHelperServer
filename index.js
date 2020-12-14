@@ -140,7 +140,7 @@ let cycle = setInterval(async() => {
                 console.error('An error occurred while executing the query')
                 throw error
               }
-            }
+            })
           })
           };
         }
